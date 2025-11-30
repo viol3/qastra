@@ -35,6 +35,7 @@ function App() {
   useEffect(() => {
     // Load wallet state from chrome storage
     chrome.storage.local.get(['wallet', 'network'], (result) => {
+      console.log('Loading from storage:', result);
       if (result.wallet) {
         setAccounts(result.wallet.accounts || []);
         setActiveAccountIndex(result.wallet.activeAccountIndex || 0);
@@ -46,12 +47,12 @@ function App() {
     });
   }, []);
 
-  // Load balances for all accounts
+  // Load balances for all accounts - only on mount and network change
   useEffect(() => {
-    if (accounts.length > 0 && !loadingBalance) {
+    if (accounts.length > 0 && !loading) {
       loadBalances();
     }
-  }, [accounts.length]);
+  }, [network]);
 
   const loadBalances = async () => {
     if (accounts.length === 0) return;
@@ -63,6 +64,8 @@ function App() {
     
     const wallet = new StellarWallet({ network });
     
+    console.log('Loading balances for accounts:', accounts);
+    
     const updatedAccounts = await Promise.all(
       accounts.map(async (account) => {
         try {
@@ -71,20 +74,24 @@ function App() {
             (b: any) => b.asset_type === 'native'
           );
           return {
-            ...account,
+            publicKey: account.publicKey,
+            name: account.name || 'Unnamed Account',
             balance: xlmBalance ? parseFloat(xlmBalance.balance).toFixed(2) : '0.00',
           };
         } catch (error: any) {
           // Account not funded yet or doesn't exist
-          console.log('Account not found or not funded:', account.publicKey);
+          console.log('Account not funded:', account.publicKey, error.response?.status);
+          // Keep existing account data, just update balance to 0
           return { 
-            ...account, 
+            publicKey: account.publicKey,
+            name: account.name || 'Unnamed Account',
             balance: '0.00' 
           };
         }
       })
     );
 
+    console.log('Updated accounts after balance load:', updatedAccounts);
     setAccounts(updatedAccounts);
     
     // Save updated accounts to storage
@@ -94,6 +101,7 @@ function App() {
           ...result.wallet,
           accounts: updatedAccounts,
         };
+        console.log('Saving to storage:', updatedWallet);
         chrome.storage.local.set({ wallet: updatedWallet });
       }
     });
@@ -253,6 +261,7 @@ function App() {
     const newAccount = {
       publicKey: keypair.publicKey,
       name: 'Account 1',
+      balance: '0.00',
     };
 
     // Save to chrome storage
@@ -298,6 +307,7 @@ function App() {
     const newAccount = {
       publicKey: keypair.publicKey,
       name: `Account ${accounts.length + 1}`,
+      balance: '0.00',
     };
 
     const updatedAccounts = [...accounts, newAccount];
@@ -312,6 +322,7 @@ function App() {
       };
 
       chrome.storage.local.set({ wallet: walletData }, () => {
+        console.log('New account created, setting accounts:', updatedAccounts);
         setAccounts(updatedAccounts);
         setShowAddAccount(false);
         
@@ -320,13 +331,11 @@ function App() {
           [`key_${keypair.publicKey}`]: keypair.secretKey,
         });
 
-        // Fund account if on testnet
+        // Fund account if on testnet (don't reload balances automatically)
         if (network === NetworkType.TESTNET) {
           stellarWallet.fundTestnetAccount(keypair.publicKey)
             .then(() => {
               console.log('Account funded successfully');
-              // Reload balances after funding
-              setTimeout(() => loadBalances(), 2000);
             })
             .catch(console.error);
         }
@@ -352,6 +361,7 @@ function App() {
       const newAccount = {
         publicKey: keypair.publicKey,
         name: `Account ${accounts.length + 1}`,
+        balance: '0.00',
       };
 
       const updatedAccounts = [...accounts, newAccount];
@@ -396,6 +406,7 @@ function App() {
         : acc
     );
 
+    console.log('Saving account name, updated accounts:', updatedAccounts);
     setAccounts(updatedAccounts);
 
     chrome.storage.local.get(['wallet'], (result) => {
@@ -404,6 +415,7 @@ function App() {
           ...result.wallet,
           accounts: updatedAccounts,
         };
+        console.log('Saving wallet with new name:', updatedWallet);
         chrome.storage.local.set({ wallet: updatedWallet });
       }
     });
@@ -532,13 +544,15 @@ function App() {
             (b: any) => b.asset_type === 'native'
           );
           return {
-            ...account,
+            publicKey: account.publicKey,
+            name: account.name,
             balance: xlmBalance ? parseFloat(xlmBalance.balance).toFixed(2) : '0.00',
           };
         } catch (error: any) {
           console.log('Account not found or not funded:', account.publicKey);
           return { 
-            ...account, 
+            publicKey: account.publicKey,
+            name: account.name,
             balance: '0.00' 
           };
         }
