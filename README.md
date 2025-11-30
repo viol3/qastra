@@ -102,6 +102,39 @@ npm run dev
 npm run build
 ```
 
+## Installation
+
+### Installing the Extension in Chrome
+
+1. **Build the Extension**
+   ```bash
+   cd packages/extension
+   npm run build
+   ```
+
+2. **Open Chrome Extensions Page**
+   - Open Chrome browser
+   - Navigate to `chrome://extensions/`
+   - Or click the three-dot menu → More Tools → Extensions
+
+3. **Enable Developer Mode**
+   - Toggle "Developer mode" switch in the top-right corner
+
+4. **Load the Extension**
+   - Click "Load unpacked" button
+   - Navigate to and select: `packages/extension/dist` folder
+   - The Qastra extension should now appear in your extensions list
+
+5. **Pin the Extension (Optional)**
+   - Click the puzzle icon in Chrome toolbar
+   - Find "Qastra" and click the pin icon
+   - Qastra icon will now appear in your toolbar
+
+6. **Start Using**
+   - Click the Qastra icon to open the wallet
+   - Create a new wallet or import an existing one
+   - Start making QR-powered payments!
+
 ### Browser Extension
 
 See [packages/extension/README.md](packages/extension/README.md) for extension-specific instructions.
