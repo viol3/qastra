@@ -1,21 +1,46 @@
 # Qastra - Stellar Wallet
 
-**Transactions in QR** - A modern Stellar wallet extension that revolutionizes crypto payments through instant QR code scanning.
+<p align="center">
+  <img src="packages/extension/public/icons/icon.png" alt="Qastra Logo" width="128" height="128">
+</p>
+
+<h3 align="center">Transactions in QR</h3>
+
+<p align="center">
+  A modern Stellar wallet extension that revolutionizes crypto payments through instant QR code scanning.
+</p>
+
+---
 
 ## Overview
 
-Qastra is a minimalist Stellar wallet that makes cryptocurrency payments effortless. Point your camera at a Qastra QR code and watch as payment details auto-populate, eliminating manual address entry and reducing errors. With seamless multi-account management, real-time balance tracking, and one-tap network switching between testnet and mainnet, Qastra delivers a frictionless payment experience.
+Qastra makes cryptocurrency payments as simple as scanning a QR code. No more copying addresses, no more typos, no more mistakes. Just point, scan, and pay. Built on the Stellar network with a clean, minimalist design, Qastra delivers the promise of **Transactions in QR** - where every payment is just one scan away.
 
 ## Features
 
-- 🔍 **QR Code Payments**: Scan QR codes to instantly populate payment details
-- 🌟 **Stellar Network**: Built on Stellar using official TypeScript Wallet SDK
+### 🔍 Transactions in QR - The Core Experience
+- **Instant Payment Scanning**: Point your camera at any Qastra QR code and payment details auto-populate
+- **Zero Manual Entry**: Recipient address, amount, and memo filled automatically
+- **Error-Free Payments**: Eliminate typos and wrong addresses
+- **Pay Mode**: Dedicated payment flow when initiated via QR scan
+
+### 💡 Powered by Stellar
+- 🌟 **Stellar Network**: Built using official TypeScript Wallet SDK
+- ⚡ **Fast Transactions**: Near-instant settlement on Stellar
+- 💰 **Low Fees**: Minimal transaction costs
+- 🌐 **Global Reach**: Send XLM anywhere in the world
+
+### 🎨 Modern & Minimalist
 - 🔐 **Secure Key Management**: Safe storage and transaction signing
-- 🌐 **Cross-Browser Support**: Works on Chrome, Firefox, Edge, and Brave
-- 📱 **Mobile-Ready Architecture**: iOS/Android support coming soon
-- 💼 **Multi-Account Management**: Manage multiple Stellar accounts with ease
+- 💼 **Multi-Account Support**: Manage multiple Stellar accounts with ease
 - 🔄 **Network Switching**: Toggle between Testnet and Mainnet instantly
-- 🎨 **Modern Design**: Clean red and white minimalist interface
+- 🎯 **Clean Interface**: Red and white minimalist design with Outfit font
+- 📱 **Mobile-Ready**: Architecture ready for iOS/Android
+
+### 🌐 Cross-Platform
+- ✅ **Chrome, Firefox, Edge, Brave**: Works on all major browsers
+- 📦 **Side Panel Support**: Persistent right-side panel for quick access
+- 🔌 **Extension Ready**: Install and use in seconds
 
 ## QR Code Payment Format
 

@@ -1,17 +1,45 @@
 # @qastra/extension
 
+<p align="center">
+  <img src="public/icons/icon.png" alt="Qastra Logo" width="96" height="96">
+</p>
+
+<h3 align="center">Transactions in QR</h3>
+
 Browser extension for Qastra - the QR-powered Stellar wallet. Compatible with Chrome, Firefox, Edge, and Brave.
 
 ## Features
 
-- 🔍 **QR Code Scanner**: Built-in camera scanner for instant payment QR codes
-- 💳 **Multi-Account Management**: Create and manage multiple Stellar accounts
-- 💸 **Send XLM**: Quick and easy payments with transaction tracking
-- 🌐 **Network Switching**: Toggle between Testnet and Mainnet
-- ⚡ **Testnet Faucet**: One-click funding for testnet accounts
-- 🎨 **Modern UI**: Clean red and white minimalist design with Outfit font
-- 🔐 **Secure Storage**: Encrypted key storage using Chrome Storage API
-- 📱 **Side Panel Support**: Persistent right-side panel for quick access
+### 🔍 Transactions in QR - Core Innovation
+- **QR Code Scanner**: Built-in camera scanner with multi-camera support
+- **Instant Payment Recognition**: Automatically parse and validate payment QR codes
+- **Auto-Fill Forms**: Recipient address, amount, and memo populated instantly
+- **Pay Mode Indicator**: Visual distinction between manual sends and QR payments
+- **Format Support**: Compatible with both `qastra###` and legacy `starcade###` formats
+
+### 💳 Wallet Management
+- **Multi-Account Support**: Create and manage multiple Stellar accounts
+- **Account Naming**: Rename accounts with inline editing
+- **Active Account System**: Quick switching between accounts
+- **Balance Display**: Real-time XLM balance for each account
+
+### 💸 Payments & Transactions
+- **Send XLM**: Quick and secure payments with transaction tracking
+- **Transaction Status Modal**: Beautiful loading, success, and error states
+- **Stellar Expert Integration**: Direct links to view transactions on explorer
+- **Transaction Hash Display**: Copy and verify transaction details
+
+### 🌐 Network & Testing
+- **Network Switching**: Toggle between Testnet and Mainnet instantly
+- **Testnet Faucet**: One-click funding for testnet accounts (☄ meteor button)
+- **Real-time Balance Updates**: Manual refresh with visual feedback
+
+### 🎨 User Experience
+- **Modern UI**: Clean red (#dc2626) and white (#ffffff) minimalist design
+- **Outfit Font**: Professional, rounded geometric typeface
+- **Side Panel Support**: Persistent right-side panel for quick access
+- **Responsive Design**: Optimized 360x600px popup interface
+- **Secure Storage**: Encrypted key storage using Chrome Storage API
 
 ## Development
 
