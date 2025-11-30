@@ -2,38 +2,57 @@ import { useState, useEffect, useRef } from 'react';
 import { StellarWallet, NetworkType } from '@qastra/core';
 import { Html5Qrcode } from 'html5-qrcode';
 
+/**
+ * Main App Component for Qastra Wallet Extension
+ * 
+ * Features:
+ * - Multi-account Stellar wallet management
+ * - QR code payment scanning
+ * - Network switching (Testnet/Mainnet)
+ * - XLM transactions with status tracking
+ * - Testnet account funding
+ */
 function App() {
+  // Account and wallet state
   const [accounts, setAccounts] = useState<any[]>([]);
   const [network, setNetwork] = useState<NetworkType>(NetworkType.TESTNET);
   const [loading, setLoading] = useState(true);
   const [loadingBalance, setLoadingBalance] = useState(false);
+  const [activeAccountIndex, setActiveAccountIndex] = useState(0);
+  
+  // Modal and UI state
   const [showAddAccount, setShowAddAccount] = useState(false);
+  const [showAccountList, setShowAccountList] = useState(false);
+  const [showSendModal, setShowSendModal] = useState(false);
+  const [showTransactionStatus, setShowTransactionStatus] = useState(false);
+  const [showQRScanner, setShowQRScanner] = useState(false);
+  
+  // Account management state
   const [importSecret, setImportSecret] = useState('');
   const [isImporting, setIsImporting] = useState(false);
   const [editingAccount, setEditingAccount] = useState<string | null>(null);
   const [editName, setEditName] = useState('');
-  const [showSendModal, setShowSendModal] = useState(false);
+  
+  // Transaction state
   const [sendFrom, setSendFrom] = useState('');
   const [sendTo, setSendTo] = useState('');
   const [sendAmount, setSendAmount] = useState('');
   const [sendMemo, setSendMemo] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [showAccountList, setShowAccountList] = useState(false);
-  const [activeAccountIndex, setActiveAccountIndex] = useState(0);
-  const [showTransactionStatus, setShowTransactionStatus] = useState(false);
+  const [isPayMode, setIsPayMode] = useState(false); // True when opened via QR scan
   const [transactionResult, setTransactionResult] = useState<{
     status: 'sending' | 'success' | 'error';
     hash?: string;
     message?: string;
   } | null>(null);
-  const [showQRScanner, setShowQRScanner] = useState(false);
+  
+  // QR Scanner state
   const qrScannerRef = useRef<Html5Qrcode | null>(null);
   const [cameras, setCameras] = useState<any[]>([]);
   const [selectedCamera, setSelectedCamera] = useState<string>('');
-  const [isPayMode, setIsPayMode] = useState(false);
 
+  // Load wallet data from Chrome storage on mount
   useEffect(() => {
-    // Load wallet state from chrome storage
     chrome.storage.local.get(['wallet', 'network'], (result) => {
       console.log('Loading from storage:', result);
       if (result.wallet) {
@@ -141,8 +160,11 @@ function App() {
           (decodedText) => {
             console.log("QR Code scanned:", decodedText);
             
-            // Parse QR code content
-            if (decodedText.startsWith('qastra###transfer###')) {
+            // Parse QR code content - support both qastra and starcade formats for backward compatibility
+            const isQastraFormat = decodedText.startsWith('qastra###transfer###');
+            const isStarcadeFormat = decodedText.startsWith('starcade###transfer###');
+            
+            if (isQastraFormat || isStarcadeFormat) {
               const parts = decodedText.split('###');
               if (parts.length >= 4) {
                 const recipientAddress = parts[2];
@@ -167,8 +189,8 @@ function App() {
                 stopQRScanner();
               }
             } else {
-              console.log('QR code does not contain Starcade transfer data');
-              alert('Invalid Starcade QR code');
+              console.log('QR code does not contain Qastra/Starcade transfer data');
+              alert('Invalid payment QR code. Please scan a valid Qastra payment QR.');
               stopQRScanner();
             }
           },
@@ -200,8 +222,11 @@ function App() {
           (decodedText) => {
             console.log("QR Code scanned:", decodedText);
             
-            // Parse QR code content
-            if (decodedText.startsWith('qastra###transfer###')) {
+            // Parse QR code content - support both qastra and starcade formats for backward compatibility
+            const isQastraFormat = decodedText.startsWith('qastra###transfer###');
+            const isStarcadeFormat = decodedText.startsWith('starcade###transfer###');
+            
+            if (isQastraFormat || isStarcadeFormat) {
               const parts = decodedText.split('###');
               if (parts.length >= 4) {
                 const recipientAddress = parts[2];
@@ -226,8 +251,8 @@ function App() {
                 stopQRScanner();
               }
             } else {
-              console.log('QR code does not contain Starcade transfer data');
-              alert('Invalid Starcade QR code');
+              console.log('QR code does not contain Qastra/Starcade transfer data');
+              alert('Invalid payment QR code. Please scan a valid Qastra payment QR.');
               stopQRScanner();
             }
           },
