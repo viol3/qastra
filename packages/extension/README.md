@@ -4,9 +4,14 @@
   <img src="public/icons/icon.png" alt="Qastra Logo" width="96" height="96">
 </p>
 
-<h3 align="center">Transactions in QR</h3>
+<h1 align="center">Qastra</h1>
+<h4 align="center">Transactions in QR</h4>
 
+<p align="center">
 Browser extension for Qastra - the QR-powered Stellar wallet. Compatible with Chrome, Firefox, Edge, and Brave.
+</p>
+
+---
 
 ## Features
 

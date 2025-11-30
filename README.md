@@ -4,6 +4,7 @@
   <img src="packages/extension/public/icons/icon.png" alt="Qastra Logo" width="128" height="128">
 </p>
 
+<h1 align="center">Qastra</h1>
 <h3 align="center">Transactions in QR</h3>
 
 <p align="center">
