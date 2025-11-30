@@ -916,7 +916,7 @@ function App() {
           <div className="modal transaction-modal">
             {transactionResult.status === 'sending' && (
               <>
-                <div className="tx-icon tx-loading">⟳</div>
+                <div className="tx-icon tx-loading"></div>
                 <h2>Sending Payment</h2>
                 <p className="tx-message">Please wait while your transaction is being processed...</p>
               </>
@@ -943,16 +943,19 @@ function App() {
                         📋
                       </button>
                     </div>
-                    <a 
-                      href={`https://stellar.expert/explorer/${network === NetworkType.TESTNET ? 'testnet' : 'public'}/tx/${transactionResult.hash}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-modal"
-                      style={{ marginTop: '10px' }}
-                    >
-                      View on Stellar Expert
-                    </a>
                   </div>
+                )}
+
+                {transactionResult.hash && (
+                  <a 
+                    href={`https://stellar.expert/explorer/${network === NetworkType.TESTNET ? 'testnet' : 'public'}/tx/${transactionResult.hash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-modal"
+                    style={{ marginTop: '20px', marginBottom: '15px' }}
+                  >
+                    View on Stellar Expert
+                  </a>
                 )}
 
                 <button 
@@ -961,7 +964,7 @@ function App() {
                     setShowTransactionStatus(false);
                     setTransactionResult(null);
                   }}
-                  style={{ marginTop: '20px', width: '100%' }}
+                  style={{ marginTop: '15px', width: '100%' }}
                 >
                   Close
                 </button>
