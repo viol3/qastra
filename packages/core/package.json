@@ -1,0 +1,22 @@
+{
+  "name": "@qastra/core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Core wallet functionality for Qastra using Stellar SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@stellar/typescript-wallet-sdk": "^1.9.0",
+    "@stellar/stellar-sdk": "^12.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  }
+}

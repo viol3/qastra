@@ -1,0 +1,22 @@
+{
+  "name": "starcade",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starcade - Stellar Wallet for Browser and Mobile",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev": "npm run dev --workspaces --if-present",
+    "clean": "rimraf packages/*/dist packages/*/build node_modules/.cache"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

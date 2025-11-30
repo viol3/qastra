@@ -1,0 +1,30 @@
+{
+  "name": "@qastra/extension",
+  "version": "0.1.0",
+  "description": "Qastra browser extension for Chrome and other browsers",
+  "scripts": {
+    "dev": "npm run build:bg && vite build --watch",
+    "build": "tsc && npm run build:bg && vite build && npm run copy-files",
+    "build:bg": "node build-background.js",
+    "copy-files": "node -e \"const fs=require('fs'); fs.copyFileSync('manifest.json','dist/manifest.json'); if(fs.existsSync('icon.png')) fs.copyFileSync('icon.png','dist/icon.png');\"",
+    "preview": "vite preview",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@qastra/core": "file:../core",
+    "html5-qrcode": "^2.3.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.258",
+    "@types/node": "^20.10.6",
+    "@types/react": "^18.2.46",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-plugin-web-extension": "^4.1.3"
+  }
+}
